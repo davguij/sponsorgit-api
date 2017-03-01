@@ -7,6 +7,9 @@
     "start": "node index.js",
     "test": "mocha test/tests/bootstrap.test.js test/tests/**/*.test.js --recursive"
   },
+  "engines": {
+    "node": "6.9.4"
+  },
   "author": "",
   "license": "UNLICENSED",
   "dependencies": {
