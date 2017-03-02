@@ -9,8 +9,10 @@ var github = new GitHubApi({
 
 
 const getRepos = (req, res) => {
-	github.users.getFollowingForUser({
-		username: "defunkt"
+	let lang = req.params.lang;
+	github.search.repos({
+		q: 'language:' + lang,
+		sort: 'updated'
 	}).then((response) => {
 		res.json(200, response);
 	}).catch((err) => {

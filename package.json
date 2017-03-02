@@ -23,6 +23,7 @@
     "grunt-mocha-istanbul": "^3.0.1",
     "istanbul": "^0.4.2",
     "mocha": "^2.3.4",
+    "nock": "^9.0.9",
     "sinon": "^1.17.2",
     "sinon-chai": "^2.8.0",
     "supertest": "^1.1.0"
