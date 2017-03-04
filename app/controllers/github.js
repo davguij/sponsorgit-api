@@ -11,7 +11,7 @@ var github = new GitHubApi({
 const getRepos = (req, res) => {
 	let lang = req.params.lang;
 	github.search.repos({
-		q: 'language:' + lang,
+		q: `stars:>=10 forks:>=3 language:${lang}`,
 		sort: 'updated'
 	}).then((response) => {
 		res.json(200, response);

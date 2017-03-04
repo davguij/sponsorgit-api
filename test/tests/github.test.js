@@ -15,7 +15,7 @@ describe('github api tests', function () {
 
     beforeEach(() => {
         nock('https://api.github.com')
-            .get('/search/repositories?sort=updated&q=language%3Ajavascript')
+            .get('/search/repositories?sort=updated&q=stars%3A%3E%3D10%20forks%3A%3E%3D3%20language%3Ajavascript')
             .replyWithFile(200, __dirname + '/mocks/github-repos.json');
     });
 
@@ -25,11 +25,12 @@ describe('github api tests', function () {
             .expect(200)
             .expect(function (res) {
                 let json = JSON.parse(res.body.data);
-                let firstResults = json['items'][0];
-                expect(json['items']).to.be.an('array');
-                expect(json['items']).to.have.lengthOf(30);
-                expect(firstResults).to.be.an('object');
-                expect(firstResults.id).to.equal(28457823);
+                let firstResult = json['data']['items'][0];
+                expect(json['data']['items']).to.be.an('array');
+                expect(json['data']['items']).to.have.lengthOf(30);
+                expect(firstResult).to.be.an('object');
+                expect(firstResult.id).to.equal(1663468);
+                expect(firstResult.language).to.equal('JavaScript');
             })
             .end(done);
     });
