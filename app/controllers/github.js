@@ -9,9 +9,15 @@ var github = new GitHubApi({
 
 
 const getRepos = (req, res) => {
-	let lang = req.params.lang;
+	let langParam = req.params.lang;
+	let langs = langParam.split(',');
+	let ghLangs = '';
+	for (var index = 0; index < langs.length; index++) {
+		let lang = langs[index];
+		ghLangs += 'language:' + lang + ' ';
+	}
 	github.search.repos({
-		q: `stars:>=10 forks:>=3 language:${lang}`,
+		q: `stars:>=10 forks:>=3 ${ghLangs}`,
 		sort: 'updated'
 	}).then((response) => {
 		res.json(200, response);
