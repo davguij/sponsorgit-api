@@ -15,7 +15,7 @@ describe('github api tests', function () {
 
     beforeEach(() => {
         nock('https://api.github.com')
-            .get('/search/repositories?sort=updated&q=stars%3A%3E%3D10%20forks%3A%3E%3D3%20language%3Ajavascript')
+            .get('/search/repositories?sort=updated&q=stars%3A%3E%3D10%20forks%3A%3E%3D3%20language%3Ajavascript%20')
             .replyWithFile(200, __dirname + '/mocks/github-repos.json');
     });
 
