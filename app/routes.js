@@ -10,6 +10,9 @@ module.exports = function (mycro) {
             },
             '/repos': {
                 get: 'github.getRepos'
+            },
+            '/repo-details': {
+                get: 'github.getRepoDetailsById'
             }
         }
     };

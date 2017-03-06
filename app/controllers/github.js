@@ -1,4 +1,5 @@
 var GitHubApi = require("github");
+const Promise = require("bluebird");
 
 var github = new GitHubApi({
 	// optional
@@ -24,8 +25,30 @@ const getRepos = (req, res) => {
 	}).catch((err) => {
 		res.json(500, { error: err })
 	});
-}
+};
+
+const getRepoDetailsById = (req, res) => {
+	let repoId = req.params.id;
+	let repoDetails = {};
+	let promises = [];
+	promises.push(github.repos.getById({ id: repoId }).then((response) => {
+		repoDetails.name = reponse.name;
+		repoDetails.ownerName = response.owner.login;
+		promises.push(github.repos.getLanguages({
+			owner: response.owner.login,
+			repo: response.name
+		}).then((response) => {
+			repoDetails.languages = response;
+		}));
+	}));
+	Promise.all(promises).then(() => {
+		res.json(200, repoDetails);
+	}).catch((err) => {
+		res.json(500, { error: err })
+	});
+};
 
 module.exports = {
-	getRepos
+	getRepos,
+	getRepoDetailsById
 };
