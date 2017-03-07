@@ -7,8 +7,16 @@ var github = new GitHubApi({
 	timeout: 5000
 });
 
+const authorize = () => {
+	github.authenticate({
+		type: "oauth",
+		key: process.env.GITHUB_API_CLIENTID,
+		secret: process.env.GITHUB_API_SECRET
+	});
+}
 
 const getRepos = (req, res) => {
+	authorize();
 	let langParam = req.params.lang;
 	let langs = langParam.split(',');
 	let ghLangs = '';
@@ -24,8 +32,32 @@ const getRepos = (req, res) => {
 	}).catch((err) => {
 		res.json(500, { error: err })
 	});
+};
+
+const getRepoDetails = (req, res) => {
+	authorize();
+	let owner = req.params.owner;
+	let repo = req.params.repo;
+	github.repos.get({ owner, repo }).then((response) => {
+		res.json(200, response);
+	}).catch((err) => {
+		res.json(500, { error: err })
+	});
+}
+
+const getRepoLangs = (req, res) => {
+	authorize();
+	let owner = req.params.owner;
+	let repo = req.params.repo;
+	github.repos.getLanguages({ owner, repo }).then((response) => {
+		res.json(200, response);
+	}).catch((err) => {
+		res.json(500, { error: err })
+	});
 }
 
 module.exports = {
-	getRepos
+	getRepos,
+	getRepoDetails,
+	getRepoLangs
 };
