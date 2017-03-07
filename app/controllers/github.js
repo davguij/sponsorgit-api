@@ -7,8 +7,16 @@ var github = new GitHubApi({
 	timeout: 5000
 });
 
+const authorize = () => {
+	github.authenticate({
+		type: "oauth",
+		key: process.env.GITHUB_API_CLIENTID,
+		secret: process.env.GITHUB_API_SECRET
+	});
+}
 
 const getRepos = (req, res) => {
+	authorize();
 	let langParam = req.params.lang;
 	let langs = langParam.split(',');
 	let ghLangs = '';
@@ -26,19 +34,23 @@ const getRepos = (req, res) => {
 	});
 };
 
-const getRepoDetailsById = (req, res) => {
-	let repoId = req.params.id;
-	let repoDetails = {};
-	github.repos.getById({ id: repoId }).then((response) => {
-		repoDetails.name = reponse.name;
-		repoDetails.ownerName = response.owner.login;
-		github.repos.getLanguages({
-			owner: response.owner.login,
-			repo: response.name
-		}).then((response) => {
-			repoDetails.languages = response;
-			res.json(200, repoDetails);
-		});
+const getRepoDetails = (req, res) => {
+	authorize();
+	let owner = req.params.owner;
+	let repo = req.params.repo;
+	github.repos.get({ owner, repo }).then((response) => {
+		res.json(200, response);
+	}).catch((err) => {
+		res.json(500, { error: err })
+	});
+}
+
+const getRepoLangs = (req, res) => {
+	authorize();
+	let owner = req.params.owner;
+	let repo = req.params.repo;
+	github.repos.getLanguages({ owner, repo }).then((response) => {
+		res.json(200, response);
 	}).catch((err) => {
 		res.json(500, { error: err })
 	});
@@ -46,5 +58,6 @@ const getRepoDetailsById = (req, res) => {
 
 module.exports = {
 	getRepos,
-	getRepoDetailsById
+	getRepoDetails,
+	getRepoLangs
 };

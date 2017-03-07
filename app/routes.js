@@ -9,11 +9,14 @@ module.exports = function (mycro) {
                 }
             },
             '/repos': {
-                get: 'github.getRepos'
+                get: 'github.getRepos',
+                '/:owner/:repo': {
+                    get: 'github.getRepoDetails',
+                    '/languages': {
+                        get: 'github.getRepoLangs'
+                    }
+                }
             },
-            '/repo-details': {
-                get: 'github.getRepoDetailsById'
-            }
         }
     };
 };
