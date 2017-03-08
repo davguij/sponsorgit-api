@@ -13,7 +13,7 @@ const authorize = () => {
 		key: process.env.GITHUB_API_CLIENTID,
 		secret: process.env.GITHUB_API_SECRET
 	});
-}
+};
 
 const getRepos = (req, res) => {
 	authorize();
@@ -21,8 +21,7 @@ const getRepos = (req, res) => {
 	let langs = langParam.split(',');
 	let ghLangs = '';
 	for (var index = 0; index < langs.length; index++) {
-		let lang = langs[index];
-		ghLangs += 'language:' + lang + ' ';
+		ghLangs += 'language:' + langs[index] + ' ';
 	}
 	github.search.repos({
 		q: `stars:>=10 forks:>=3 ${ghLangs}`,
@@ -30,7 +29,7 @@ const getRepos = (req, res) => {
 	}).then((response) => {
 		res.json(200, response);
 	}).catch((err) => {
-		res.json(500, { error: err })
+		res.json(500, { error: err });
 	});
 };
 
