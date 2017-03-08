@@ -1,4 +1,4 @@
-var GitHubApi = require("github");
+var GitHubApi = require('github');
 
 var github = new GitHubApi({
 	// optional
@@ -9,7 +9,7 @@ var github = new GitHubApi({
 
 const authorize = () => {
 	github.authenticate({
-		type: "oauth",
+		type: 'oauth',
 		key: process.env.GITHUB_API_CLIENTID,
 		secret: process.env.GITHUB_API_SECRET
 	});
@@ -21,7 +21,8 @@ const getRepos = (req, res) => {
 	let langs = langParam.split(',');
 	let ghLangs = '';
 	for (var index = 0; index < langs.length; index++) {
-		ghLangs += 'language:' + langs[index] + ' ';
+		let lang = langs[index];
+		ghLangs += 'language:' + lang + ' ';
 	}
 	github.search.repos({
 		q: `stars:>=10 forks:>=3 ${ghLangs}`,
@@ -40,9 +41,9 @@ const getRepoDetails = (req, res) => {
 	github.repos.get({ owner, repo }).then((response) => {
 		res.json(200, response);
 	}).catch((err) => {
-		res.json(500, { error: err })
+		res.json(500, { error: err });
 	});
-}
+};
 
 const getRepoLangs = (req, res) => {
 	authorize();
@@ -51,9 +52,9 @@ const getRepoLangs = (req, res) => {
 	github.repos.getLanguages({ owner, repo }).then((response) => {
 		res.json(200, response);
 	}).catch((err) => {
-		res.json(500, { error: err })
+		res.json(500, { error: err });
 	});
-}
+};
 
 module.exports = {
 	getRepos,
