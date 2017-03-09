@@ -13,7 +13,7 @@ module.exports = {
         // define some custom middleware
         function cors(mycro) {
             return mycro._restify.CORS({
-                origins: ['*'], // defaults to ['*']
+                origins: ['*'] // defaults to ['*']
                 // credentials: true, // defaults to false
                 // headers: ['x-foo'] // sets expose-headers
             });
