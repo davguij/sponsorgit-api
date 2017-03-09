@@ -14,7 +14,7 @@ describe('basic tests', function () {
     process.env.NODE_ENV = 'test';
 
     before(function (done) {
-        var mycro = require('../../app');
+        var mycro = require('../app');
         global._mycro = mycro;
         mycro.start(function (err) {
             if (err) {

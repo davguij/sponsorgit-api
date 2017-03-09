@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "mocha test/tests/bootstrap.test.js test/tests/**/*.test.js --recursive"
+    "test": "istanbul cover _mocha -- -R spec"
   },
   "engines": {
     "node": "6.9.4"
