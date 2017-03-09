@@ -1,6 +1,7 @@
 'use strict';
-
+/* eslint-disable */
 module.exports = function (mycro) {
+    /* eslint-enable */
     return {
         'v1.0.0': {
             '/healthy': {

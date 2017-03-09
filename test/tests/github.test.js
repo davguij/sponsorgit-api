@@ -1,18 +1,15 @@
 /* jshint expr:true */
+/* global request */
 'use strict';
 
 var chai = require('chai'),
     sinonChai = require('sinon-chai'),
-    supertest = require('supertest'),
     nock = require('nock');
 
 chai.use(sinonChai);
 var expect = chai.expect;
 
 describe('github api tests', () => {
-    var originalEnv = process.env.NODE_ENV;
-    process.env.NODE_ENV = 'test';
-
     beforeEach(() => {
         nock('https://api.github.com')
             .get(/search\/repositories/g)

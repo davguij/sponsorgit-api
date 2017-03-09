@@ -1,4 +1,5 @@
 /* jshint expr:true */
+/* global before, after, request */
 'use strict';
 
 var chai = require('chai'),
