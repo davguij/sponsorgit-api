@@ -17,7 +17,7 @@ module.exports = function (mycro) {
                         get: 'github.getRepoLangs'
                     }
                 }
-            },
+            }
         }
     };
 };

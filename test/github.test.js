@@ -2,26 +2,28 @@
 /* global request */
 'use strict';
 
-var chai = require('chai'),
+const path = require('path');
+
+const chai = require('chai'),
     sinonChai = require('sinon-chai'),
     nock = require('nock');
 
 chai.use(sinonChai);
-var expect = chai.expect;
+const expect = chai.expect;
 
 describe('github api tests', () => {
     beforeEach(() => {
         nock('https://api.github.com')
             .get(/search\/repositories/g)
-            .replyWithFile(200, __dirname + '/mocks/github-repos.json');
+            .replyWithFile(200, path.join(__dirname, '/mocks/github-repos.json'));
 
         nock('https://api.github.com')
             .get(/languages/g)
-            .replyWithFile(200, __dirname + '/mocks/github-repo-languages.json');
+            .replyWithFile(200, path.join(__dirname, '/mocks/github-repo-languages.json'));
 
         nock('https://api.github.com')
             .get(/repos\/angular\/angular/g)
-            .replyWithFile(200, __dirname + '/mocks/github-repo-detail.json');
+            .replyWithFile(200, path.join(__dirname, '/mocks/github-repo-detail.json'));
     });
 
     it('should retrieve repos', (done) => {

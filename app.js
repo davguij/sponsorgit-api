@@ -1,6 +1,6 @@
 'use strict';
 
-var Mycro = require('mycro'),
-    mycro = new Mycro();
+const Mycro = require('mycro');
+const mycro = new Mycro();
 
 module.exports = mycro;

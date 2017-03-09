@@ -1,9 +1,10 @@
-var GitHubApi = require('github');
+const GitHubApi = require('github');
+const Bluebird = require('bluebird');
 
-var github = new GitHubApi({
+const github = new GitHubApi({
 	// optional
 	debug: true,
-	Promise: require('bluebird'),
+	Promise: Bluebird,
 	timeout: 5000
 });
 
@@ -15,12 +16,19 @@ const authorize = () => {
 	});
 };
 
+const getRepoParams = (reqParams) => {
+	return {
+		owner: reqParams.owner,
+		repo: reqParams.repo
+	};
+};
+
 const getRepos = (req, res) => {
 	authorize();
 	let langParam = req.params.lang;
 	let langs = langParam.split(',');
 	let ghLangs = '';
-	for (var index = 0; index < langs.length; index++) {
+	for (let index = 0; index < langs.length; index++) {
 		let lang = langs[index];
 		ghLangs += 'language:' + lang + ' ';
 	}
@@ -36,9 +44,7 @@ const getRepos = (req, res) => {
 
 const getRepoDetails = (req, res) => {
 	authorize();
-	let owner = req.params.owner;
-	let repo = req.params.repo;
-	github.repos.get({ owner, repo }).then((response) => {
+	github.repos.get(getRepoParams(req.params)).then((response) => {
 		res.json(200, response);
 	}).catch((err) => {
 		res.json(500, { error: err });
@@ -47,9 +53,7 @@ const getRepoDetails = (req, res) => {
 
 const getRepoLangs = (req, res) => {
 	authorize();
-	let owner = req.params.owner;
-	let repo = req.params.repo;
-	github.repos.getLanguages({ owner, repo }).then((response) => {
+	github.repos.getLanguages(getRepoParams(req.params)).then((response) => {
 		res.json(200, response);
 	}).catch((err) => {
 		res.json(500, { error: err });

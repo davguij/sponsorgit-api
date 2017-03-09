@@ -17,7 +17,6 @@ module.exports = {
                 // credentials: true, // defaults to false
                 // headers: ['x-foo'] // sets expose-headers
             });
-        },
-
+        }
     ]
 };

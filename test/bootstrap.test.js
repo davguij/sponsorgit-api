@@ -2,19 +2,19 @@
 /* global before, after, request */
 'use strict';
 
-var chai = require('chai'),
+const chai = require('chai'),
     sinonChai = require('sinon-chai'),
     supertest = require('supertest');
 
 chai.use(sinonChai);
-var expect = chai.expect;
+const expect = chai.expect;
 
 describe('basic tests', function () {
-    var originalEnv = process.env.NODE_ENV;
+    let originalEnv = process.env.NODE_ENV;
     process.env.NODE_ENV = 'test';
 
     before(function (done) {
-        var mycro = require('../app');
+        const mycro = require('../app'); // eslint-disable-line global-require
         global._mycro = mycro;
         mycro.start(function (err) {
             if (err) {
