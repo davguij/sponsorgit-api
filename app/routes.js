@@ -15,6 +15,9 @@ module.exports = function (mycro) {
                     get: 'github.getRepoDetails',
                     '/languages': {
                         get: 'github.getRepoLangs'
+                    },
+                    '/sponsors': {
+                        get: 'sponsors.getAll'
                     }
                 }
             }
