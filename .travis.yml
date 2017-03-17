@@ -2,9 +2,12 @@ language: node_js
 node_js:
   - "6.9.4"
 addons:
-    code_climate:
-        repo_token: 7379e1389628414ab9776118fe8ca691ad932d31eb4a52fae43120574a7895eb
+  code_climate:
+    repo_token: 105a4097a74358f0e3236d2b728b0a5490928bb750fb05197930e9b7682e5053
 after_success:
   - npm install -g codeclimate-test-reporter
   - codeclimate-test-reporter < coverage/lcov.info
-  
+notifications:
+  slack:
+    rooms:
+      - davguij:otGBFdokD90c9WiHxQep2IGI#sponsorgit-api
