@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "istanbul cover _mocha -- -R spec"
+    "test": "istanbul cover _mocha -- -R spec",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "engines": {
     "node": "6.9.4"
@@ -15,7 +17,8 @@
   "dependencies": {
     "bluebird": "^3.4.7",
     "github": "^9.1.0",
-    "mycro": "^0.5.3"
+    "mycro": "^0.5.3",
+    "snyk": "^1.88.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -28,5 +31,6 @@
     "sinon": "^1.17.2",
     "sinon-chai": "^2.8.0",
     "supertest": "^3.0.0"
-  }
+  },
+  "snyk": true
 }
