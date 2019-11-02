@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "eslint": "^3.17.1",
+    "eslint": "^6.6.0",
     "grunt": "^1.0.0",
     "grunt-mocha-istanbul": "^5.0.0",
     "istanbul": "^0.4.2",
